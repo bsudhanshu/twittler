@@ -1,27 +1,92 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="styles.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
   </head>
   <body>
-    <script>
 
-      $(document).ready(function(){
+  <h1>Welcome to Twittler</h1>
+
+  <div class="navbar">
+    <ul>
+      <li><a class="active" href="#home">Home</a></li>
+      <li><a class="new-tweets" href="#news">New Tweets</a></li>
+      <li><a href="#create-tweets">Create Tweets</a></li>
+      <li id="friends-dropdown"><a href="#friends">Friends</a>
+        <ul class="dropdown-content">
+          <li>shawndrost</li>
+          <li>sharksforcheap</li>
+          <li>mracus</li>
+          <li>douglascalhoun</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+   <script>
+
+     function tweetedAgo (tweet_time) {
+       var current_time = new Date().getTime();
+       var tweet_time = new Date(tweet_time).getTime();
+       var tweeted_ago = current_time-tweet_time;
+
+       var secs = Math.floor(tweeted_ago/1000)%60;
+       var mins = Math.floor(tweeted_ago/1000/60)%60;
+       var hours = Math.floor(tweeted_ago/1000/60/60)%24;
+       var days = Math.floor(tweeted_ago/1000/60/60/24); 
+       
+       if (tweeted_ago < 1000) {
+         return 'just now';
+       } else if (secs > 0 && mins < 1) {
+         return secs + ' seconds ago';
+       } else if (mins > 0 && hours < 1) {
+         return mins + ' minutes ' + secs + ' seconds ago'; 
+       } else if (hours > 0 && days < 1) {
+         return hours + ' hours ' + mins + ' minutes ' + secs + ' seconds ago';
+       } else {
+         return days + ' days ' + hours + ' hours ' + mins + ' minutes ' + secs + ' seconds ago';
+       }
+     }
+
+     $(document).ready(function(){
+        
         var $body = $('body');
-        $body.html('');
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div class="tweet"></div>');
+          $tweet.html('<span class="tweet_user">' + '@'+ tweet.user + '</span>' +': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at) + ' Index: ' + index);
+          $tweet.appendTo($body);
+          index -= 1;
+        }
+     });
+
+     $('.new-tweets').on('click', function () {
+        $('div.tweet').remove();
+        
+        var $body = $('body');
 
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var $tweet = $('<div class="tweet"></div>');
+          $tweet.html('<span class="tweet_user">' + '@' + tweet.user + '</span>' + ': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at) + ' Index: ' + index);
           $tweet.appendTo($body);
           index -= 1;
         }
+     });
 
-      });
+     $('.tweet').on('click', '.tweet_user', function () {
+       $('div.tweet').remove('.tweet_user');
+     });
+
+     $(".tweet_user").click(function(){
+        alert("The paragraph was clicked.");
+    });
 
     </script>
+
   </body>
 </html>
