@@ -16,10 +16,10 @@
       <li><a href="#create-tweets">Create Tweets</a></li>
       <li id="friends-dropdown"><a href="#friends">Friends</a>
         <ul class="dropdown-content">
-          <li>shawndrost</li>
-          <li>sharksforcheap</li>
-          <li>mracus</li>
-          <li>douglascalhoun</li>
+          <li id="shawndrost">shawndrost</li>
+          <li id="sharksforcheap">sharksforcheap</li>
+          <li id="mracus">mracus</li>
+          <li id="douglascalhoun">douglascalhoun</li>
         </ul>
       </li>
     </ul>
@@ -50,6 +50,20 @@
        }
      }
 
+     var reloadAllTweets = function () {
+       $('div.tweet').remove();
+        
+        var $body = $('body');
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div class="tweet"></div>');
+          $tweet.html('<span class="tweet_user">' + '@' + tweet.user + '</span>' + ': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at) + ' Index: ' + index);
+          $tweet.appendTo($body);
+          index -= 1;
+        }
+     }
+
      $(document).ready(function(){
         
         var $body = $('body');
@@ -63,28 +77,29 @@
         }
      });
 
-     $('.new-tweets').on('click', function () {
-        $('div.tweet').remove();
-        
-        var $body = $('body');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div class="tweet"></div>');
-          $tweet.html('<span class="tweet_user">' + '@' + tweet.user + '</span>' + ': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at) + ' Index: ' + index);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+     $('.new-tweets, .active').on('click', function () {
+       reloadAllTweets(); 
      });
 
-     $('.tweet').on('click', '.tweet_user', function () {
-       $('div.tweet').remove('.tweet_user');
+     $('#shawndrost').on('click', function () {
+       reloadAllTweets();
+       $('div.tweet').filter(':not(:contains("shawndrost"))').remove('');
      });
 
-     $(".tweet_user").click(function(){
-        alert("The paragraph was clicked.");
-    });
+     $('#sharksforcheap').on('click', function () {
+       reloadAllTweets();
+       $('div.tweet').filter(':not(:contains("sharksforcheap"))').remove('');
+     });
+
+     $('#mracus').on('click', function () {
+       reloadAllTweets();
+       $('div.tweet').filter(':not(:contains("mracus"))').remove('');
+     });
+
+     $('#douglascalhoun').on('click', function () {
+       reloadAllTweets();
+       $('div.tweet').filter(':not(:contains("douglascalhoun"))').remove('');
+     });
 
     </script>
 
