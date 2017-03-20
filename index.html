@@ -9,17 +9,17 @@
 
   <h1>Welcome to Twittler</h1>
 
-  <div class="navbar">
+  <div id="navbar">
     <ul>
-      <li><a class="active" href="#home">Home</a></li>
-      <li><a class="new-tweets" href="#news">New Tweets</a></li>
-      <li><a href="#create-tweets">Create Tweets</a></li>
-      <li id="friends-dropdown"><a href="#friends">Friends</a>
+      <li><a class="home">Home</a></li>
+      <li><a class="new-tweets">New Tweets</a></li>
+      <li><a class="create-tweets">Create Tweets</a></li>
+      <li class="friends-dropdown"><a class="friends">Friends</a>
         <ul class="dropdown-content">
-          <li id="shawndrost">shawndrost</li>
-          <li id="sharksforcheap">sharksforcheap</li>
-          <li id="mracus">mracus</li>
-          <li id="douglascalhoun">douglascalhoun</li>
+          <li id="shawndrost"><div>@shawndrost</div></li>
+          <li id="sharksforcheap">@sharksforcheap</li>
+          <li id="mracus">@mracus</li>
+          <li id="douglascalhoun">@douglascalhoun</li>
         </ul>
       </li>
     </ul>
@@ -58,7 +58,7 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div class="tweet"></div>');
-          $tweet.html('<span class="tweet_user">' + '@' + tweet.user + '</span>' + ': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at) + ' Index: ' + index);
+          $tweet.html('<span class="tweet_user">' + '@' + tweet.user + '</span>' + ': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at));
           $tweet.appendTo($body);
           index -= 1;
         }
@@ -71,34 +71,54 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div class="tweet"></div>');
-          $tweet.html('<span class="tweet_user">' + '@'+ tweet.user + '</span>' +': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at) + ' Index: ' + index);
+          $tweet.html('<span class="tweet_user">' + '@'+ tweet.user + '</span>' +': ' + tweet.message + '<br> Tweeted ' + tweetedAgo(tweet.created_at));
           $tweet.appendTo($body);
-          index -= 1;
+          index -= 1; 
         }
      });
 
-     $('.new-tweets, .active').on('click', function () {
+     $('.new-tweets, .home').on('click', function () {
        reloadAllTweets(); 
      });
 
      $('#shawndrost').on('click', function () {
        reloadAllTweets();
-       $('div.tweet').filter(':not(:contains("shawndrost"))').remove('');
+       $('div.tweet').filter(':not(:contains("shawndrost"))').remove();
      });
 
      $('#sharksforcheap').on('click', function () {
        reloadAllTweets();
-       $('div.tweet').filter(':not(:contains("sharksforcheap"))').remove('');
+       $('div.tweet').filter(':not(:contains("sharksforcheap"))').remove();
      });
 
      $('#mracus').on('click', function () {
        reloadAllTweets();
-       $('div.tweet').filter(':not(:contains("mracus"))').remove('');
+       $('div.tweet').filter(':not(:contains("mracus"))').remove();
      });
 
      $('#douglascalhoun').on('click', function () {
        reloadAllTweets();
-       $('div.tweet').filter(':not(:contains("douglascalhoun"))').remove('');
+       $('div.tweet').filter(':not(:contains("douglascalhoun"))').remove();
+     });
+
+     $('.home').on('click', function () {
+       $('*').removeClass('active');
+       $(this).addClass('active');
+     });
+
+     $('.new-tweets').on('click', function () {
+       $('*').removeClass('active');
+       $(this).addClass('active');
+     });
+
+     $('.create-tweets').on('click', function () {
+       $('*').removeClass('active');
+       $(this).addClass('active');
+     });
+
+     $('.friends').on('click', function () {
+       $('*').removeClass('active');
+       $(this).addClass('active');
      });
 
     </script>

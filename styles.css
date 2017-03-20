@@ -1,5 +1,5 @@
 body {
-   background-color: lightblue;
+   background-color: #e6e6e6;
 }
 
 h1 {
@@ -33,16 +33,17 @@ li a {
     font-size: 125%;
 }
 
-li a:hover:not(.active) {
-    background-color: #ddd;
-}
-
-li a.active {
+li a:hover {
     color: white;
-    background-color: #1DA1F2;
+    background-color: brown;
 }
 
-.navbar {
+.active {
+    color: white;
+    background-color: brown;
+}
+
+#navbar {
 	border: 2px solid #666;
 	margin-bottom: 20px;	
 	margin-top: none;
@@ -54,27 +55,27 @@ li a.active {
     margin: 0;
     padding: 0;
     width: 130px;
-    background-color: #f1f1f1;
     position: absolute;
 }
 
-#friends-dropdown:hover .dropdown-content {
+.friends-dropdown:hover .dropdown-content {
     display: block;
-    color: #666;
+    color: white;
+    background-color: brown;
     text-align: center;
     padding: 2px 10px;
     text-decoration: none;
 }
 
-#friends-dropdown:hover .dropdown-content li {
+.friends-dropdown:hover .dropdown-content li {
 	display: block;
-    padding: 14px 16px;
+    padding: 14px 16px 14px 0;
     font-size: 115%;
 }
 
-#friends-dropdown:hover .dropdown-content li:hover {
-    background-color: #ddd;
-    font-size: 115%;
+.friends-dropdown:hover .dropdown-content li:hover {
+    padding-left: 0;
+    text-decoration: underline;
 }
 
 .tweet {
@@ -87,8 +88,7 @@ li a.active {
 	font-size: 115%;
 }
 
-.tweet_user:hover {
-    color: #1DA1F2;
+.tweet_user {
+    color: black;
     font-weight: bold;
-    text-decoration: underline;
 }
